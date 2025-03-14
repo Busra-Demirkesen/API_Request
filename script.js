@@ -78,11 +78,42 @@ function getPostById() {
       .then((response) => response.json())
       .then((post) => {
         if (post) {
-          const postDisplay = document.getElementById("posts-container");
-          postDisplay.innerHTML = `
-            <h2>${post.title}</h2>
-            <p>${post.body}</p>
-          `;
+
+          const postsContainer = document.getElementById('posts-container');
+          postsContainer.innerHTML = '';
+        
+         
+          document.querySelector('.input-id').value = '';
+
+         const postItem = document.createElement('li');
+         postItem.classList.add('post');
+
+         const postTitle = document.createElement('h2');
+         postTitle.classList.add('post-title');
+         postTitle.textContent = post.title;
+         const postBody = document.createElement('p');
+         postBody.classList.add('post-body');
+         postBody.textContent = post.body;
+
+         const updatePostButton = document.createElement('a');
+         updatePostButton.href = `./update-post.html?id=${post.id}`;
+         updatePostButton.textContent = 'Update';
+         updatePostButton.classList.add('button', 'button--success');
+
+         const deletePostButton = document.createElement('button');
+        deletePostButton.textContent = 'Delete';
+        deletePostButton.addEventListener('click', () => deletePost(post.id));
+        deletePostButton.classList.add('button', 'button--danger');
+
+        postItem.appendChild(postTitle);
+        postItem.appendChild(postBody);
+        postItem.appendChild(updatePostButton);
+        postItem.appendChild(deletePostButton);
+        document.getElementById('posts-container').appendChild(postItem);
+       
+
+
+
         } else {
           document.getElementById("post-display").innerHTML = "Post not found!";
         }
