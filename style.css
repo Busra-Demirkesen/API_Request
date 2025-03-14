@@ -61,20 +61,31 @@ ul {
   margin-bottom: 20px;
 }
 
-.button--success {
-  background-color: #4caf50;
+.button--update {
+  background-color: #232523;
+  transition: 0.4s all ease;
+  text-decoration: none;
 }
 
-.button--success:hover {
-  background-color: #45a049;
+.button--update:hover {
+  background: transparent;
+  border: 1px solid #000;
+  color: #000;
+  
+
 }
 
 .button--danger {
-  background-color: #7a0916;
+  margin-left: 20px;
+  background-color: transparent;
+  color: #000;
+  border:1px solid #000; 
+  transition: 0.4s all ease;
 }
 
 .button--danger:hover {
-  background-color: #79000cf4;
+  background-color: #232523;
+  color: #fff;
 }
 
 .fetch-button {

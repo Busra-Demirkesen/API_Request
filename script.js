@@ -41,7 +41,7 @@ function getPosts() {
         const updatePostButton = document.createElement("a");
         updatePostButton.href = `./update-post.html?id=${post.id}`;
         updatePostButton.textContent = "Update";
-        updatePostButton.classList.add("button", "button--success");
+        updatePostButton.classList.add("button", "button--update");
 
         const deletePostButton = document.createElement("button");
         deletePostButton.textContent = "Delete";
@@ -162,6 +162,9 @@ createdForm.addEventListener("submit", function (event) {
   event.preventDefault();
   createPost();
 });
+
+
+
 
 function updatePost() {}
 
