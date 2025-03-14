@@ -15,133 +15,158 @@ HTTP status codes are three-digit numbers that the server sends in response to a
 500... - Service error (500 Internal Server Error, 502 Bad Gateway, 503 Service Unavailable)
 */
 
+const URL = "https://jsonplaceholder.typicode.com/posts";
 
-const URL = 'https://jsonplaceholder.typicode.com/posts';
+document.getElementById("fetch-posts").addEventListener("click", getPosts);
 
-document.getElementById('fetch-posts').addEventListener('click', getPosts);
+const searchIdButton = document.querySelector(".search-id-button");
 
-
-const searchIdButton = document.querySelector('.search-id-button');
-
-searchIdButton.addEventListener('click', getPostById);
+searchIdButton.addEventListener("click", getPostById);
 
 function getPosts() {
-  console.log('Getting posts');
+  console.log("Getting posts");
   fetch(URL)
     .then((response) => response.json())
     .then((posts) => {
       posts.forEach((post) => {
-        const liItem = document.createElement('li');
-        liItem.classList.add('post');
-        const postTitle = document.createElement('h2');
-        postTitle.classList.add('post-title');
+        const liItem = document.createElement("li");
+        liItem.classList.add("post");
+        const postTitle = document.createElement("h2");
+        postTitle.classList.add("post-title");
         postTitle.textContent = posts.title;
-        const pItem = document.createElement('p');
-        pItem.classList.add('post-body');
+        const pItem = document.createElement("p");
+        pItem.classList.add("post-body");
         pItem.textContent = post.body;
 
-        const updatePostButton = document.createElement('a');
+        const updatePostButton = document.createElement("a");
         updatePostButton.href = `./update-post.html?id=${post.id}`;
-        updatePostButton.textContent = 'Update';
-        updatePostButton.classList.add('button', 'button--success');
+        updatePostButton.textContent = "Update";
+        updatePostButton.classList.add("button", "button--success");
 
-        const deletePostButton = document.createElement('button');
-        deletePostButton.textContent = 'Delete';
-        deletePostButton.addEventListener('click', () => deletePost(post.id));
-        deletePostButton.classList.add('button', 'button--danger');
+        const deletePostButton = document.createElement("button");
+        deletePostButton.textContent = "Delete";
+        deletePostButton.addEventListener("click", () => deletePost(post.id));
+        deletePostButton.classList.add("button", "button--danger");
 
         liItem.appendChild(postTitle);
         liItem.appendChild(pItem);
         liItem.appendChild(updatePostButton);
         liItem.appendChild(deletePostButton);
-        document.getElementById('posts-container').appendChild(liItem);
-       
+        document.getElementById("posts-container").appendChild(liItem);
       });
     });
 }
 
-
-
-
-
 function getPostById() {
-
-
-  const postID = document.querySelector('.input-id').value;
+  const postID = document.querySelector(".input-id").value;
 
   console.log("Getting post ID", postID);
 
-  if (postID) {
-    const URL = `https://jsonplaceholder.typicode.com/posts/${postID}`;
-    
-    fetch(URL)
-      .then((response) => response.json())
-      .then((post) => {
-        if (post) {
+  const URL = `https://jsonplaceholder.typicode.com/posts/${postID}`;
 
-          const postsContainer = document.getElementById('posts-container');
-          postsContainer.innerHTML = '';
-        
-         
-          document.querySelector('.input-id').value = '';
+  fetch(URL)
+    .then((response) => response.json())
+    .then((post) => {
+      const postsContainer = document.getElementById("posts-container");
+      postsContainer.innerHTML = "";
+      document.querySelector(".input-id").value = "";
 
-         const postItem = document.createElement('li');
-         postItem.classList.add('post');
+      const postItem = document.createElement("li");
+      postItem.classList.add("post");
 
-         const postTitle = document.createElement('h2');
-         postTitle.classList.add('post-title');
-         postTitle.textContent = post.title;
-         const postBody = document.createElement('p');
-         postBody.classList.add('post-body');
-         postBody.textContent = post.body;
+      const postTitle = document.createElement("h2");
+      postTitle.classList.add("post-title");
+      postTitle.textContent = post.title;
+      const postBody = document.createElement("p");
+      postBody.classList.add("post-body");
+      postBody.textContent = post.body;
 
-         const updatePostButton = document.createElement('a');
-         updatePostButton.href = `./update-post.html?id=${post.id}`;
-         updatePostButton.textContent = 'Update';
-         updatePostButton.classList.add('button', 'button--success');
+      const updatePostButton = document.createElement("a");
+      updatePostButton.href = `./update-post.html?id=${post.id}`;
+      updatePostButton.textContent = "Update";
+      updatePostButton.classList.add("button", "button--success");
 
-         const deletePostButton = document.createElement('button');
-        deletePostButton.textContent = 'Delete';
-        deletePostButton.addEventListener('click', () => deletePost(post.id));
-        deletePostButton.classList.add('button', 'button--danger');
+      const deletePostButton = document.createElement("button");
+      deletePostButton.textContent = "Delete";
+      deletePostButton.addEventListener("click", () => deletePost(post.id));
+      deletePostButton.classList.add("button", "button--danger");
 
-        postItem.appendChild(postTitle);
-        postItem.appendChild(postBody);
-        postItem.appendChild(updatePostButton);
-        postItem.appendChild(deletePostButton);
-        document.getElementById('posts-container').appendChild(postItem);
-       
-
-
-
-        } else {
-          document.getElementById("post-display").innerHTML = "Post not found!";
-        }
-      })
-      .catch((error) => {
-        console.log("Error fetching the post:", error);
-      });
-  } else {
-    console.log("Post ID is missing");
-  }
+      postItem.appendChild(postTitle);
+      postItem.appendChild(postBody);
+      postItem.appendChild(updatePostButton);
+      postItem.appendChild(deletePostButton);
+      document.getElementById("posts-container").appendChild(postItem);
+    });
 }
 
-
-  function createPost() {
+function createPost() {
   // Get the form data
   // Validate the form data
   // If form data is not valid, show error messages on the screen (do NOT use alert!)
   // If form data is valid, make an API request to create the post (POST request)
   // Once succesccful response is recieved, show a success message on the screen
   // Clear the form
+
+  const postTitle = document.getElementById("post-title").value;
+  const postBody = document.getElementById("post-body").value;
+
+  let isValid = true;
+  let errorMessage = [];
+
+  if (postTitle.trim() === "") {
+    isValid = false;
+    errorMessage.push("Title is required");
+  }
+
+  if (postBody.trim() === "") {
+    isValid = false;
+    errorMessage.push("Post content is required");
+  }
+
+  if (!isValid) {
+    document.getElementById("error-message").innerHTML =
+      errorMessage.join("<br>");
+    return;
+  }
+
+  const postData = {
+    title: postTitle,
+    body: postBody,
+  };
+
+  fetch("https://api.example.com/posts", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+
+    body: JSON.stringify(postData),
+  })
+    .then((response) => response.JSON())
+    .then((data) => {
+      document.getElementById("success-message").innerHTML =
+        "Post created successfully!";
+      document.getElementById("postForm").reset();
+    })
+
+    .catch((error) => {
+      document.getElementById(
+        "error-message"
+      ).innerHTML = `Error: ${error.message}`;
+    });
 }
+
+const createdForm = document.getElementById("postForm");
+
+createdForm.addEventListener("submit", function (event) {
+  event.preventDefault();
+  createPost();
+});
 
 function updatePost() {}
 
 function deletePost(postId) {
   fetch(`${URL}/${postId}`, {
-    method: 'DELETE',
+    method: "DELETE",
   });
 }
-
-

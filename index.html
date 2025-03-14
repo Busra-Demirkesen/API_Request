@@ -1,60 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://kit.fontawesome.com/b40438d37d.js" crossorigin="anonymous"></script>
-</head>
-<body>
-
+    <link rel="stylesheet" href="style.css" />
+    <script
+      src="https://kit.fontawesome.com/b40438d37d.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
     <div class="container">
-        <h1>Posts</h1>
+      <h1>Posts</h1>
 
-        
-
-        <div class="post-controls">
-
-          <button id="fetch-posts" class="button fetch-button">
-            Fetch all posts
+      <button id="fetch-posts" class="button fetch-button">
+        Fetch all posts
+      </button>
+      <div class="post-controls">
+        <div class="idInput">
+          <input type="text" class="input-id" placeholder="Enter an ID" />
+          <button class="button search-id-button">
+            <i class="fa-solid fa-magnifying-glass"></i>
           </button>
-        
-
-          <div class="idInput">
-            <input type="text" class="input-id" placeholder="Enter an ID">
-            <button class="button search-id-button"><i class="fa-solid fa-magnifying-glass"></i></button>
-          </div>
-
-
         </div>
-  
-        
+      </div>
 
-        
-  
-        <!--
+      <!--
         Fetch all posts and display them on the page.
         For every post, add a button to update the post and delete a post.
         When the update button is clicked, redirect user to the update post page with a form to update the post.
         When the delete button is clicked, send request to delete the post.
         Add a button to create a new post. When the button is clicked, redirect user to the create post page with a form to create a new post.
-      -->
-      
-    </div>
 
+
+        <!--Create Post Section-->
+
+      <div class="create-post">
+        <h2>Create a new Post</h2>
+        <form id="postForm">
+          <input
+            type="text"
+            id="post-title"
+            name="title"
+            placeholder="Post Title"
+            required
+          />
+          <textarea
+            id="post-body"
+            name="body"
+            placeholder="Post Content"
+            required
+          ></textarea>
+          <button type="submit" id="create-post-button">Create Post</button>
+
+          <div id="error-message"></div>
+          <div id="success-message"></div>
+        </form>
+      </div>
+
+      <!--Show Posts-->
 
       <ul id="posts-container"></ul>
+    </div>
 
-  
-
-
-
-
-
-
-
-<script src="script.js" defer></script>
-    
-</body>
+    <script src="script.js" defer></script>
+  </body>
 </html>
