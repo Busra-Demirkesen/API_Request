@@ -174,7 +174,7 @@ ul {
   resize: vertical;
 }
 
-#create-post-button {
+#create-post-button, #update-post-button {
   background-color: #232523;
   color: white;
   padding: 10px 10px;
@@ -187,8 +187,26 @@ ul {
   transition: 0.4s all ease;
 }
 
-#create-post-button:hover {
+#create-post-button:hover, #update-post-button:hover {
   background: transparent;
   color: #232523;
   border: 1px solid #232523;
+}
+
+#back-to-home{
+margin-top: 50px;
+background:transparent;
+border: 1px solid #232523;
+padding: 10px 10px;
+color: #000;
+border-radius: 4px;
+align-items: center;
+width: 100%;
+transition: 0.4s all ease;
+font-size: 20px;
+}
+
+#back-to-home:hover{
+  background-color: #232523;
+  color:#fff;
 }

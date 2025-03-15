@@ -84,7 +84,7 @@ function getPostById() {
       const updatePostButton = document.createElement("a");
       updatePostButton.href = `./update-post.html?id=${post.id}`;
       updatePostButton.textContent = "Update";
-      updatePostButton.classList.add("button", "button--success");
+      updatePostButton.classList.add("button", "button--update");
 
       const deletePostButton = document.createElement("button");
       deletePostButton.textContent = "Delete";
@@ -166,10 +166,43 @@ createdForm.addEventListener("submit", function (event) {
 
 
 
-function updatePost() {}
+function updatePost() {} // update-post.js sayfasında
+
+
+
 
 function deletePost(postId) {
+  if (!confirm("Are you sure you want to delete this post?")) {
+    return;
+  }
+
   fetch(`${URL}/${postId}`, {
     method: "DELETE",
-  });
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(() => {
+  
+      const postElement = document.getElementById(`post-${postId}`);
+      if (postElement) {
+        postElement.remove();
+      }
+
+  
+      const successMessage = document.getElementById("success-message");
+      if (successMessage) {
+        successMessage.innerText = "Post deleted successfully!";
+      }
+    })
+    .catch((error) => {
+     
+      const errorMessage = document.getElementById("error-message");
+      if (errorMessage) {
+        errorMessage.innerText = `Error deleting post: ${error.message}`;
+      }
+    });
 }
