@@ -3,17 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Update post</title>
     <script
       src="https://kit.fontawesome.com/b40438d37d.js"
       crossorigin="anonymous"
     ></script>
     <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
+    <title>Create New Post</title>
+
     <div class="container">
-      <div class="update-post">
-        <h2>Update Post</h2>
+      <div class="create-post">
+        <h2>Create a new Post</h2>
         <form id="postForm">
           <input
             type="text"
@@ -28,18 +27,17 @@
             placeholder="Post Content"
             required
           ></textarea>
-          <button type="submit" id="update-post-button">Update Post</button>
+          <button type="submit" id="create-post-button">Create Post</button>
 
           <div id="error-message"></div>
           <div id="success-message"></div>
-
-          <button id="back-to-home">
-            <i class="fa-solid fa-left-long"></i>
-          </button>
         </form>
+
+        <button id="back-to-home"><i class="fa-solid fa-left-long"></i></button>
       </div>
     </div>
-
-    <script src="./update-post.js"></script>
+  </head>
+  <body>
+    <script src="create-post.js"></script>
   </body>
 </html>

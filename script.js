@@ -33,7 +33,7 @@ function getPosts() {
         liItem.classList.add("post");
         const postTitle = document.createElement("h2");
         postTitle.classList.add("post-title");
-        postTitle.textContent = posts.title;
+        postTitle.textContent = post.title;
         const pItem = document.createElement("p");
         pItem.classList.add("post-body");
         pItem.textContent = post.body;
@@ -99,77 +99,6 @@ function getPostById() {
     });
 }
 
-function createPost() {
-  // Get the form data
-  // Validate the form data
-  // If form data is not valid, show error messages on the screen (do NOT use alert!)
-  // If form data is valid, make an API request to create the post (POST request)
-  // Once succesccful response is recieved, show a success message on the screen
-  // Clear the form
-
-  const postTitle = document.getElementById("post-title").value;
-  const postBody = document.getElementById("post-body").value;
-
-  let isValid = true;
-  let errorMessage = [];
-
-  if (postTitle.trim() === "") {
-    isValid = false;
-    errorMessage.push("Title is required");
-  }
-
-  if (postBody.trim() === "") {
-    isValid = false;
-    errorMessage.push("Post content is required");
-  }
-
-  if (!isValid) {
-    document.getElementById("error-message").innerHTML =
-      errorMessage.join("<br>");
-    return;
-  }
-
-  const postData = {
-    title: postTitle,
-    body: postBody,
-  };
-
-  fetch("https://api.example.com/posts", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-
-    body: JSON.stringify(postData),
-  })
-    .then((response) => response.JSON())
-    .then((data) => {
-      document.getElementById("success-message").innerHTML =
-        "Post created successfully!";
-      document.getElementById("postForm").reset();
-    })
-
-    .catch((error) => {
-      document.getElementById(
-        "error-message"
-      ).innerHTML = `Error: ${error.message}`;
-    });
-}
-
-const createdForm = document.getElementById("postForm");
-
-createdForm.addEventListener("submit", function (event) {
-  event.preventDefault();
-  createPost();
-});
-
-
-
-
-function updatePost() {} // update-post.js sayfasında
-
-
-
 
 function deletePost(postId) {
   if (!confirm("Are you sure you want to delete this post?")) {
@@ -186,20 +115,17 @@ function deletePost(postId) {
       return response.json();
     })
     .then(() => {
-  
       const postElement = document.getElementById(`post-${postId}`);
       if (postElement) {
         postElement.remove();
       }
 
-  
       const successMessage = document.getElementById("success-message");
       if (successMessage) {
         successMessage.innerText = "Post deleted successfully!";
       }
     })
     .catch((error) => {
-     
       const errorMessage = document.getElementById("error-message");
       if (errorMessage) {
         errorMessage.innerText = `Error deleting post: ${error.message}`;
