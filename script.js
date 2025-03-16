@@ -38,6 +38,8 @@ function getPosts() {
         pItem.classList.add("post-body");
         pItem.textContent = post.body;
 
+        const buttonGroup = document.createElement("div");
+        buttonGroup.classList.add('button-group');
         const updatePostButton = document.createElement("a");
         updatePostButton.href = `./update-post.html?id=${post.id}`;
         updatePostButton.textContent = "Update";
@@ -48,10 +50,12 @@ function getPosts() {
         deletePostButton.addEventListener("click", () => deletePost(post.id));
         deletePostButton.classList.add("button", "button--danger");
 
+        buttonGroup.appendChild(updatePostButton);
+        buttonGroup.appendChild(deletePostButton);
+
         liItem.appendChild(postTitle);
         liItem.appendChild(pItem);
-        liItem.appendChild(updatePostButton);
-        liItem.appendChild(deletePostButton);
+        liItem.appendChild(buttonGroup);
         document.getElementById("posts-container").appendChild(liItem);
       });
     });
@@ -81,6 +85,9 @@ function getPostById() {
       postBody.classList.add("post-body");
       postBody.textContent = post.body;
 
+      const buttonGroup = document.createElement("div");
+        buttonGroup.classList.add('button-group');
+
       const updatePostButton = document.createElement("a");
       updatePostButton.href = `./update-post.html?id=${post.id}`;
       updatePostButton.textContent = "Update";
@@ -91,44 +98,72 @@ function getPostById() {
       deletePostButton.addEventListener("click", () => deletePost(post.id));
       deletePostButton.classList.add("button", "button--danger");
 
+      buttonGroup.appendChild(updatePostButton);
+      buttonGroup.appendChild(deletePostButton);
+
       postItem.appendChild(postTitle);
       postItem.appendChild(postBody);
-      postItem.appendChild(updatePostButton);
-      postItem.appendChild(deletePostButton);
+      postItem.appendChild(buttonGroup);
       document.getElementById("posts-container").appendChild(postItem);
     });
 }
 
 
+
+
+
 function deletePost(postId) {
-  if (!confirm("Are you sure you want to delete this post?")) {
+  const modal = document.getElementById("confirmation-modal");
+  const confirmBtn = document.getElementById("confirm-delete");
+  const cancelBtn = document.getElementById("cancel-delete");
+
+  if (!modal || !confirmBtn || !cancelBtn) {
+    console.error("Modal or buttons not found!");
     return;
   }
 
-  fetch(`${URL}/${postId}`, {
-    method: "DELETE",
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      return response.json();
-    })
-    .then(() => {
-      const postElement = document.getElementById(`post-${postId}`);
-      if (postElement) {
-        postElement.remove();
-      }
+  
+  modal.style.display = "flex";
 
-      const successMessage = document.getElementById("success-message");
-      if (successMessage) {
-        successMessage.innerText = "Post deleted successfully!";
-      }
+
+  cancelBtn.onclick = function () {
+    modal.style.display = "none";
+  };
+
+
+  confirmBtn.onclick = function () {
+    modal.style.display = "none"; 
+
+    fetch(`${URL}/${postId}`, {
+      method: "DELETE",
     })
-    .catch((error) => {
-      const errorMessage = document.getElementById("error-message");
-      if (errorMessage) {
-        errorMessage.innerText = `Error deleting post: ${error.message}`;
-      }
-    });
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(() => {
+        const postElement = document.getElementById(`post-${postId}`);
+        if (postElement) {
+          postElement.remove();
+        }
+        showMessage("Post deleted successfully!", "success");
+      })
+      .catch((error) => {
+        showMessage(`Error deleting post: ${error.message}`, "error");
+      });
+  };
+}
+
+function showMessage(text, type) {
+  const messageBox = document.getElementById(type === "success" ? "success-message" : "error-message");
+  if (!messageBox) return; 
+
+  messageBox.innerText = text;
+  messageBox.style.display = "block";
+
+  setTimeout(() => {
+    messageBox.style.display = "none";
+  }, 3000);
 }

@@ -30,6 +30,10 @@ ul {
 }
 
 .post {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   max-width: 550px;
   background-color: #fff;
@@ -40,15 +44,22 @@ ul {
 }
 
 .post-title {
-  font-size: 20px;
+  font-size: 16px;
   font-weight: bold;
   color: #333;
   margin: 0 0 10px;
+  text-transform: uppercase;
+  text-align: center;
 }
 
 .post-body {
   color: #666;
   margin: 0;
+  text-align: center;
+}
+.button-group{
+  display: flex;
+  margin-top: 30px;
 }
 
 .button {
@@ -58,16 +69,18 @@ ul {
   border-radius: 4px;
   font-size: 16px;
   cursor: pointer;
-  margin-bottom: 20px;
+  margin-bottom: 20px ;
 }
 
 .button--update {
+
   background-color: #232523;
   transition: 0.4s all ease;
   text-decoration: none;
 }
 
 .button--update:hover {
+ 
   background: transparent;
   border: 1px solid #000;
   color: #000;
@@ -228,4 +241,43 @@ ul {
 
 #success-message {
   color: #0fa057;
+}
+
+
+.modal{
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content{
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#confirm-delete, #cancel-delete{
+  padding: 10px 20px;
+  background-color: #232523;
+  color: #fff;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.4s all ease;
+}
+
+#confirm-delete:hover, #cancel-delete:hover{
+ background: transparent;
+ border: 1px solid #232523;
+ color: #000;
 }
