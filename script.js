@@ -39,7 +39,7 @@ function getPosts() {
         pItem.textContent = post.body;
 
         const buttonGroup = document.createElement("div");
-        buttonGroup.classList.add('button-group');
+        buttonGroup.classList.add("button-group");
         const updatePostButton = document.createElement("a");
         updatePostButton.href = `./update-post.html?id=${post.id}`;
         updatePostButton.textContent = "Update";
@@ -73,7 +73,7 @@ function getPostById() {
     .then((post) => {
       const postsContainer = document.getElementById("posts-container");
       postsContainer.innerHTML = "";
-      document.querySelector(".input-id").value = "";
+      postID.value = "";
 
       const postItem = document.createElement("li");
       postItem.classList.add("post");
@@ -86,7 +86,7 @@ function getPostById() {
       postBody.textContent = post.body;
 
       const buttonGroup = document.createElement("div");
-        buttonGroup.classList.add('button-group');
+      buttonGroup.classList.add("button-group");
 
       const updatePostButton = document.createElement("a");
       updatePostButton.href = `./update-post.html?id=${post.id}`;
@@ -108,57 +108,38 @@ function getPostById() {
     });
 }
 
-
-
-
-
 function deletePost(postId) {
   const modal = document.getElementById("confirmation-modal");
   const confirmBtn = document.getElementById("confirm-delete");
   const cancelBtn = document.getElementById("cancel-delete");
-
-  if (!modal || !confirmBtn || !cancelBtn) {
-    console.error("Modal or buttons not found!");
-    return;
-  }
-
-  
   modal.style.display = "flex";
-
 
   cancelBtn.onclick = function () {
     modal.style.display = "none";
   };
 
-
   confirmBtn.onclick = function () {
-    modal.style.display = "none"; 
+    modal.style.display = "none";
 
     fetch(`${URL}/${postId}`, {
       method: "DELETE",
     })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-      })
+      .then((response) => response.json())
       .then(() => {
         const postElement = document.getElementById(`post-${postId}`);
         if (postElement) {
           postElement.remove();
         }
         showMessage("Post deleted successfully!", "success");
-      })
-      .catch((error) => {
-        showMessage(`Error deleting post: ${error.message}`, "error");
       });
   };
 }
 
 function showMessage(text, type) {
-  const messageBox = document.getElementById(type === "success" ? "success-message" : "error-message");
-  if (!messageBox) return; 
+  const messageBox = document.getElementById(
+    type === "success" ? "success-message" : "error-message"
+  );
+  if (!messageBox) return;
 
   messageBox.innerText = text;
   messageBox.style.display = "block";

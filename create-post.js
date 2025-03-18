@@ -30,7 +30,7 @@ function createPost() {
     body: postBody,
   };
 
-  fetch("https://api.example.com/posts", {
+  fetch("https://jsonplaceholder.typicode.com/posts", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -44,7 +44,7 @@ function createPost() {
       return response.json();
     })
     .then((data) => {
-      successMessage.innerHTML = "Post created successfully!";
+      successMessage.textContent = "Post created successfully!";
       document.getElementById("postForm").reset();
     })
     .catch((error) => {
