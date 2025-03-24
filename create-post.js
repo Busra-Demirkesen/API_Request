@@ -49,6 +49,7 @@ function createPost() {
     })
     .catch((error) => {
       errorMessage.textContent = `Error: ${error.message}`;
+      
     });
 }
 
