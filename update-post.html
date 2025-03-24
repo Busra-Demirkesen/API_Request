@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Update post</title>
+    <script
+      src="https://kit.fontawesome.com/b40438d37d.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="update-post">
+        <h2>Update Post</h2>
+        <form id="postForm">
+          <input
+            type="text"
+            id="post-title"
+            name="title"
+            placeholder="Post Title"
+            required
+          />
+          <textarea
+            id="post-body"
+            name="body"
+            placeholder="Post Content"
+            required
+          ></textarea>
+          <button type="submit" id="update-post-button">Update Post</button>
+
+          <div id="error-message"></div>
+          <div id="success-message"></div>
+
+          <button id="back-to-home">
+            <i class="fa-solid fa-left-long"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <script src="./update-post.js"></script>
+  </body>
+</html>

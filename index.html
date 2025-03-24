@@ -1,11 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
-    
-</body>
+    <link rel="stylesheet" href="style.css" />
+    <script
+      src="https://kit.fontawesome.com/b40438d37d.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Posts</h1>
+
+      <button id="fetch-posts" class="button fetch-button">
+        Fetch all posts
+      </button>
+      <div class="post-controls">
+        <div class="idInput">
+          <input type="text" class="input-id" placeholder="Enter an ID" />
+          <button class="button search-id-button">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </div>
+      </div>
+
+      <a
+        href="create-post.html"
+        id="create-navigation-button"
+        class="create-navigation-button button"
+        target="_blank"
+        >Create a Post</a
+      >
+
+      <div id="confirmation-modal" class="modal">
+        <div class="modal-content">
+          <p>Are you sure want to delete this post?</p>
+          <button id="confirm-delete">Yes</button>
+          <button id="cancel-delete">No   </button>
+        </div>
+      </div>
+
+
+      <div id="error-message"></div>
+      <div id="success-message"></div>
+
+      <ul id="posts-container"></ul>
+
+    </div>
+
+    <script src="script.js" defer></script>
+  </body>
 </html>
