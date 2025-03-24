@@ -48,7 +48,7 @@ function createPost() {
       document.getElementById("postForm").reset();
     })
     .catch((error) => {
-      errorMessage.innerHTML = `Error: ${error.message}`;
+      errorMessage.textContent = `Error: ${error.message}`;
     });
 }
 
